@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Skill Tree</title>
+<script>
+let app={
+	state:{}, lib:{}, cst:{
+		MAX_LEVEL:3
+	}
+};
+// 核心操作功能
+app.get=function(selector){
+	return document.querySelector(selector);
+};
+app.getAll=function(selector){
+	return document.querySelectorAll(selector);
+};
+app.setAttributes=function(obj,attributes){
+	for(let name in attributes){
+		obj[name]=attributes[name];
+	}
+	return obj;
+};
+app.createSvgElement=function(tagName,atrs,parentElement){
+	let obj=document.createElementNS("http://www.w3.org/2000/svg", tagName);
+	for(let name in atrs){
+		obj.setAttribute(name, atrs[name]);
+	}
+	if(parentElement instanceof Element){parentElement.appendChild(obj);}
+	return obj;
+};
+app.modifySvgElement=function(obj,atrs,parentElement){
+	for(let name in atrs){
+		obj.setAttribute(name, atrs[name]);
+	}
+	if(parentElement===obj.parentNode){
+		parentElement.removeChild(obj);
+	}else if(parentElement instanceof Element){
+		parentElement.appendChild(obj);
+	}
+	return obj;
+};
+app.setEventHandlers=function(obj,eventHandlers,useCapture){
+	for(let name in eventHandlers){
+		if(eventHandlers[name] instanceof Array){
+			for(let i=0;i<eventHandlers[name].length;i++){
+				obj.addEventListener(name,eventHandlers[name][i],useCapture);
+			}
+		}else{
+			obj.addEventListener(name,eventHandlers[name],useCapture);
+		}
+	}
+	return obj;
+};
+// 主流程
+app.init=function(){
+	// 初始化狀態
+	let Skill=app.lib.Skill;
+	app.state.skills={
+		// step 0
+		"s_0_0":new Skill(0, 0, "Skill-0-0", []),
+		"s_0_1":new Skill(0, 1, "Skill-0-1", []),
+		// step 1
+		"s_1_0":new Skill(1, 0, "Skill-1-0", ["s_0_0"]),
+		// step 2
+		"s_2_0":new Skill(2, 0, "Skill-2-0", ["s_1_0"]),
+		"s_2_1":new Skill(2, 1, "Skill-2-1", ["s_1_0", "s_0_1"]),
+		// step 3
+		"s_3_0":new Skill(3, 0, "Skill-3-0", ["s_2_1"]),
+		"s_3_1":new Skill(3, 1, "Skill-3-1", ["s_2_0", "s_2_1"]),
+		"s_3_2":new Skill(3, 2, "Skill-3-2", ["s_2_1"])
+	};
+	for(let key in app.state.skills){
+		app.state.skills[key].preSkills=app.state.skills[key].preSkills.map(function(key){
+			return app.state.skills[key];
+		});
+	}
+	// 產生介面
+	app.render();
+};
+app.render=function(){
+	let skills=app.state.skills;
+	let ground=app.get("#ground");
+	ground.innerHTML="";
+	for(let key in skills){
+		let skill=skills[key];
+		skill.render();
+	}
+};
+window.addEventListener("load", app.init);
+// 我的類別庫
+app.lib.Skill=class{
+	constructor(step, count, name, preSkills){
+		this.step=step;
+		this.count=count;
+		this.name=name;
+		this.preSkills=preSkills;
+		this.level=0;
+	}
+	render(){
+		let stepDistance=250;
+		let countDistance=120;
+		let circleRadius=40;
+		let ground=app.get("#ground");
+		let x=stepDistance*(0.5+this.step);
+		let y=countDistance*(0.5+this.count);
+		let opacity=0.4+(0.3*this.level);
+		let circle=app.createSvgElement("circle", {
+			"cx":x, "cy":y, "r":circleRadius,
+			"fill":"#ddeeff", "stroke":"#8899aa", "fill-opacity":opacity
+		}, ground);
+		app.createSvgElement("text", {
+			"x":x, "y":y+5, "text-anchor":"middle"
+		}, ground).textContent=this.name;
+		// Pre skills
+		let ready=true;
+		this.preSkills.forEach(function(preSkill){
+			let startX=stepDistance*(0.5+preSkill.step);
+			let startY=countDistance*(0.5+preSkill.count);
+			let complete=preSkill.level===app.cst.MAX_LEVEL;
+			ready=ready&&complete;
+			let strokeWidth=complete?3:1;
+			app.createSvgElement("line", {
+				"x1":startX+circleRadius, "y1":startY, "x2":x-circleRadius, "y2":y,
+				"stroke":"#888888", "stroke-width":strokeWidth
+			}, ground);
+		});
+		if(ready&&this.level<app.cst.MAX_LEVEL){
+			app.setEventHandlers(circle, {
+				"click":this.upgrade.bind(this)
+			});
+		}
+	}
+	upgrade(){
+		this.level++;
+		app.render();
+	}
+}
+</script>
+</head>
+<body style="text-align:center;">
+	<h1>系統化的完成技能樹功能</h1>
+	<svg width="1000" height="500" id="ground"></svg>
+</body>
+</html>
