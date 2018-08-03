@@ -62,10 +62,10 @@ app.init=function(){
 		"s_0_0":new Skill(0, 0, "Skill-0-0", []),
 		"s_0_1":new Skill(0, 1, "Skill-0-1", []),
 		// step 1
-		"s_1_0":new Skill(1, 0, "Skill-1-0", ["s_0_0"]),
+		"s_1_0":new Skill(1, 0, "Skill-1-0", ["s_0_0", "s_0_1"]),
 		// step 2
 		"s_2_0":new Skill(2, 0, "Skill-2-0", ["s_1_0"]),
-		"s_2_1":new Skill(2, 1, "Skill-2-1", ["s_1_0", "s_0_1"]),
+		"s_2_1":new Skill(2, 1, "Skill-2-1", ["s_1_0"]),
 		// step 3
 		"s_3_0":new Skill(3, 0, "Skill-3-0", ["s_2_1"]),
 		"s_3_1":new Skill(3, 1, "Skill-3-1", ["s_2_0", "s_2_1"]),
@@ -80,17 +80,66 @@ app.init=function(){
 	app.render();
 };
 app.render=function(){
-
+	let skills=app.state.skills;
+	let ground=app.get("#ground");
+	ground.innerHTML=""; // 先清空
+	for(let key in skills){
+		let skill=skills[key];
+		skill.render();
+	}
 };
 window.addEventListener("load", app.init);
 // 我的類別庫
 app.lib.Skill=class{
 	constructor(step, count, name, preSkills){
-		this.step=step; // 整棵樹中的主
-		this.count=count; // 在同一個
-		this.name=name;
-		this.preSkills=preSkills;
-		this.level=0;
+		this.step=step; // 整棵樹中的主階段
+		this.count=count; // 每個階段中的技能編號
+		this.name=name; // 技能名稱
+		this.preSkills=preSkills; // 前置技能列表
+		this.level=0; // 技能等級，預設從 0 開始
+	}
+	render(){
+		let stepDistance=250;
+		let countDistance=120;
+		let circleRadius=50;
+		let ground=app.get("#ground");
+		// 建立技能的圓圈圈畫面
+		let x=stepDistance*(this.step+0.5);
+		let y=countDistance*(this.count+0.5);
+		let opacity=0.4+(0.3*this.level);
+		let circle=app.createSvgElement("circle", {
+			"cx":x, "cy":y, "r":circleRadius,
+			"fill":"#ddeeff", "stroke":"#8899aa",
+			"fill-opacity":opacity
+		}, ground);
+		// 建立每個技能名字的文字
+		app.createSvgElement("text", {
+			"x":x, "y":y+5, "text-anchor":"middle"
+		}, ground).textContent=this.name;
+		// 建立和前置技能的線條連結
+		let ready=true; // 紀錄目前的技能是否準備好可以按了
+		this.preSkills.forEach(function(preSkill){
+			let startX=stepDistance*(preSkill.step+0.5);
+			let startY=countDistance*(preSkill.count+0.5);
+			let complete=preSkill.level===app.cst.MAX_LEVEL;
+			ready=ready&&complete;
+			let strokeWidth=complete?3:1;
+			app.createSvgElement("line", {
+				"x1":startX+circleRadius, "y1":startY,
+				"x2":x-circleRadius, "y2":y,
+				"stroke":"#888888", "stroke-width":strokeWidth
+			}, ground);
+		});
+		// 若是可以按，註冊點擊事件
+		if(ready&&this.level<app.cst.MAX_LEVEL){
+			app.setEventHandlers(circle, {
+				"click":this.upgrade.bind(this)
+			});
+		}
+	}
+	upgrade(){
+		this.level++;
+		app.render();
 	}
 }
 </script>
