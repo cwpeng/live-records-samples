@@ -4,5 +4,5 @@
 
 根據資料，自動生成技能樹系統：
 
-- 直播網址：[YouTube 直播](https://www.youtube.com/watch?v=tAKoBulUArg)
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=tAKoBulUArg)
 - 範例檔案：`/samples/skill-tree.html`
