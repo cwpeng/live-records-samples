@@ -11,4 +11,4 @@
 
 透過網路，取得並顯示遠端伺服器提供的 JSON 資料：
 
-- 範例檔案：`/samples/ajax-basic.html`
+- 範例檔案：[/samples/ajax-basic.html](https://github.com/cwpeng/live-samples/blob/master/samples/ajax-basic.html)
