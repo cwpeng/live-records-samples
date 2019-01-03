@@ -5,7 +5,7 @@
 根據資料，自動生成技能樹系統：
 
 - 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=tAKoBulUArg)
-- 範例檔案：`/samples/skill-tree.html`
+- 範例檔案：[/samples/skill-tree.html](https://github.com/cwpeng/live-samples/blob/master/samples/skill-tree.html)
 
 ## AJAX 網路連線基本操作
 
