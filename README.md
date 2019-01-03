@@ -6,3 +6,9 @@
 
 - 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=tAKoBulUArg)
 - 範例檔案：`/samples/skill-tree.html`
+
+## AJAX 網路連線基本操作
+
+透過網路，取得並顯示遠端伺服器提供的 JSON 資料：
+
+- 範例檔案：`/samples/ajax-basic.html`
