@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>AJAX 網路連線基本操作</title>
+</head>
+<body>
+	<h1>AJAX 網路連線基本操作</h1>
+	<div id="list"></div>
+	<script>
+		// 先顯示載入中的訊息
+		let list=document.getElementById("list");
+		list.innerHTML="... Loading ...";
+		/*
+			基本的 AJAX 語法：使用最新的 fetch 內建函式
+				fetch(網址).then(function(response){
+					// 取得 response 物件
+				});
+			詳細使用請參考：
+				https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+			或搜尋關鍵字：
+				fetch mdn
+		*/
+		// 透過網址取得伺服器端提供的 JSON 格式資料
+		fetch("https://cwpeng.github.io/live-samples/data/products.json").then(function(response){
+			return response.json();
+		}).then(function(data){
+			// 先清空畫面
+			list.innerHTML="";
+			// 根據取得的資料，將產品的訊息顯示出來
+			let product;
+			for(let i=0;i<data.length;i++){
+				product=data[i];
+				list.innerHTML+=product.name.bold()+" - "+product.price+"<br/>"+product.description+"<hr/>";
+			}
+		});
+	</script>
+</body>
+</html>
