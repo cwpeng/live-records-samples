@@ -11,6 +11,6 @@
 ## 使用 Github Page 與 AJAX 網路連線基本操作
 
 學習使用 Github Page 快速建立實際的網站。  
-透過網路，取得並顯示遠端伺服器提供的 JSON 資料。
+透過網路，使用 AJAX fetch 技術取得並顯示遠端伺服器提供的 JSON 資料。
 
 - 範例檔案：[/samples/ajax-basic.html](https://github.com/cwpeng/live-records-samples/blob/master/samples/ajax-basic.html)
