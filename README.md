@@ -8,6 +8,13 @@
 - 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=tAKoBulUArg)
 - 範例檔案：[/samples/skill-tree.html](https://github.com/cwpeng/live-records-samples/blob/master/samples/skill-tree.html)
 
+## Git 版本管理工具與 GitHub 雲端專案管理服務
+
+認識 Git 版本管理工具的本質，使用命令介面操作 Git 在本機端做專案管理。  
+認識 GitHub 雲端專案管理服務，將本機端的專案，推送上雲端方便多人協作。
+
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=NugoF40e6Dk)
+
 ## 使用 Github Page 與 AJAX 網路連線基本操作
 
 學習使用 Github Page 快速建立實際的網站。  
