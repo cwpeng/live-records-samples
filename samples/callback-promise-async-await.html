@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>非同步流程控制 Callback、Promise、Async/Await</title>
+<script>
+// 問題的起源：非同步的程式
+/*
+function delayedAdd(n1, n2, delayTime){
+	// 設定排程，延遲一段時間後執行
+	window.setTimeout(function(){
+		return n1+n2;
+	}, delayTime);
+}
+function test(){
+	let result=delayedAdd(3, 4, 2000);
+	console.log(result);
+}
+*/
+// Callback 回呼函式
+/*
+function delayedAdd(n1, n2, delayTime, callback){
+	// 設定排程，延遲一段時間後執行
+	window.setTimeout(function(){
+		// 延遲一段時間之後，計算加法，呼叫 callback 函式
+		callback(n1+n2);
+	}, delayTime);
+}
+function test(){
+	delayedAdd(3, 4, 2000, function(result){
+		console.log(result);
+	});
+}
+*/
+// Promise 物件
+/*
+function delayedAdd(n1, n2, delayTime){
+	// 建立 Promise 物件：new Promise(執行函式)
+	return new Promise(function(resolve, reject){
+		window.setTimeout(function(){
+			resolve(n1+n2); // 工作完成，呼叫 resolve 函式，並且把結果透過參數傳遞進去
+		}, delayTime);
+	});
+}
+function test(){
+	let promise1=delayedAdd(3, 4, 2000);
+	let promise2=delayedAdd(2, 3, 3000);
+	// 同時等待多個 Promise 都完成之後，才繼續工作
+	Promise.all([promise1, promise2]).then(function(results){
+		let answer=results.reduce(function(total, value){
+			return total*value;
+		});
+		console.log(answer);
+	});
+}
+*/
+// Async/Await 語法：簡化 Promise 語法
+function delayedAdd(n1, n2, delayTime){
+	// 建立 Promise 物件：new Promise(執行函式)
+	return new Promise(function(resolve, reject){
+		window.setTimeout(function(){
+			resolve(n1+n2); // 工作完成，呼叫 resolve 函式，並且把結果透過參數傳遞進去
+		}, delayTime);
+	});
+}
+async function test(){
+	// 分別等待多個 Promise 完成後才繼續動作
+	let result1=await delayedAdd(3, 4, 2000);
+	let result2=await delayedAdd(2, 3, 3000);
+	let answer=result1*result2;
+	console.log(answer);
+}
+</script>
+</head>
+<body>
+	<h3>非同步流程控制 Callback、Promise、Async/Await</h3>
+	<button onclick="test();">Test</button>
+</body>
+</html>
