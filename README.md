@@ -22,3 +22,11 @@
 
 - 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=ZNBwugL-u1o)
 - 範例檔案：[/samples/ajax-basic.html](https://github.com/cwpeng/live-records-samples/blob/master/samples/ajax-basic.html)
+
+## 非同步流程控制 Callback、Promise、Async/Await 技巧介紹
+
+了解非同步 Asynchronous 程式在流程控制上的挑戰。
+學會使用 Callback、Promise、Async/Await 等技巧，正確處理非同步程式的運作。
+
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=NOprCnnjHm0)
+- 範例檔案：[/samples/callback-promise-async-await.html](https://github.com/cwpeng/live-records-samples/blob/master/samples/callback-promise-async-await.html)
