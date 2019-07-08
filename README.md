@@ -1,6 +1,16 @@
 隨時歡迎參觀[彭彭的教學網站](https://training.pada-x.com/)。  
 以下是每次的直播紀錄列表：
 
+## 如何自學新的程式語言，以 Golang 為例
+
+1. 學習資源在哪裡？
+2. 如何抓到寫一個新程式語言的感覺？
+3. 哪些是基礎必備的知識？
+4. 如何熟練、舉一反三、並準備好學習進階的知識？
+
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=jZhcpzhjix8)
+- 範例檔案：[/samples/golang-learning-path.go](https://github.com/cwpeng/live-records-samples/blob/master/samples/golang-learning-path.go)
+
 ## 系統化的完成技能樹系統
 
 根據資料，自動生成技能樹系統。
