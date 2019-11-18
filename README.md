@@ -1,6 +1,18 @@
 隨時歡迎參觀[彭彭的教學網站](https://training.pada-x.com/)。  
 以下是每次的直播紀錄列表：
 
+## JavaScript 變數資料的處理與傳遞
+
+1. 基本資料型別和參考資料型別。
+2. 程式如何管理變數？
+3. 程式如何複製變數？
+4. 名稱空間是什麼？
+5. 資料如何傳遞到函式中？
+6. 陣列的操作。
+
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=43VI2zWSpd0)
+- 範例檔案：[/samples/primitive-reference-data-type.js](https://github.com/cwpeng/live-records-samples/blob/master/samples/primitive-reference-data-type.js)
+
 ## 如何自學新的程式語言，以 Golang 為例
 
 1. 學習資源在哪裡？
