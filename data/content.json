@@ -1,0 +1,30 @@
+{
+  "chapters":[
+    {
+      "key":"start",
+      "title":"快速開始",
+      "sections":[
+        "Webpack 簡介",
+        "React 簡介"
+      ]
+    },
+    {
+      "key":"react",
+      "title":"React 基礎",
+      "sections":[
+        "React Element",
+        "React Component",
+        "React Lifecycle"
+      ]
+    },
+    {
+      "key":"redux",
+      "title":"Redux",
+      "sections":[
+        "Redux 簡介",
+        "Redux 基礎操作",
+        "React Redux"
+      ]
+    }
+  ]
+}
