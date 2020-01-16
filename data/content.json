@@ -1,4 +1,5 @@
 {
+  "headline":"React Redux 入門教學課程",
   "chapters":[
     {
       "key":"start",
@@ -19,10 +20,10 @@
     },
     {
       "key":"redux",
-      "title":"Redux",
+      "title":"Redux 基礎",
       "sections":[
         "Redux 簡介",
-        "Redux 基礎操作",
+        "Redux 核心操作",
         "React Redux"
       ]
     }
