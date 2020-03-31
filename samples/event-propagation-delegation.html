@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>事件傳遞 (Propagation) 和事件委託 (Delegation)</title>
+<style>
+.switcher>.option{
+	display:inline-block;
+	width:40px;height:40px;margin:5px;
+	background-color:#cccccc;
+}
+.switcher>.current{
+	background-color:#666666;
+}
+</style>
+</head>
+<body>
+	<h3>事件傳遞展示</h3>
+	<div id="layout">
+		<button id="btn">點擊</button>
+	</div>
+	<script>
+		/*
+		let layout=document.querySelector("#layout");
+		let btn=document.querySelector("#btn");
+		// 標籤元件.addEventListener("事件名稱", 處理函式, 捕獲模式 true 或冒泡模式 false)
+		// Event Handling in Capture Stage
+		document.body.addEventListener("click", function(){
+			console.log("Body Clicked, Capture");
+		}, true);
+		layout.addEventListener("click", function(e){
+			console.log("Layout Clicked, Capture");
+			// e.stopPropagation(); // 停止事件傳遞
+		}, true);
+		btn.addEventListener("click", function(){
+			console.log("Button Clicked, Capture");
+		}, true);
+		// Event Handling in Bubble Stage
+		document.body.addEventListener("click", function(){
+			console.log("Body Clicked, Bubble");
+		}, false);
+		layout.addEventListener("click", function(){
+			console.log("Layout Clicked, Bubble");
+		}, false);
+		btn.addEventListener("click", function(){
+			console.log("Button Clicked, Bubble");
+		}, false);
+		*/
+	</script>
+
+
+	<hr/>
+	<h3>事件委託展示：區分不同的按鈕點擊</h3>
+	<div id="menu">
+		<button data-key="add">新增</button>
+		<button data-key="update">修改</button>
+		<button data-key="remove">刪除</button>
+	</div>
+	<script>
+		let menu=document.querySelector("#menu");
+		menu.addEventListener("click", function(e){
+			// 取得實際觸發事件的元件 e.target
+			let key=e.target.getAttribute("data-key");
+			console.log(key);
+		});
+	</script>
+
+
+	<hr/>
+	<h3>事件委託展示：選項切換效果</h3>
+	<div class="switcher">
+		<div class="option"></div>
+		<div class="option"></div>
+		<div class="option"></div>
+	</div>
+	<script>
+		let switcher=document.querySelector(".switcher");
+		let currentOption=null;
+		switcher.addEventListener("click", function(e){
+			// 先把目前的選擇去除樣式
+			if(currentOption!==null){
+				currentOption.classList.remove("current");
+			}
+			// 再把目前的選擇指定給點到的選項
+			if(e.target.classList.contains("option")){ // 確定有點到 option
+				currentOption=e.target;
+				currentOption.classList.add("current");
+			}else{ // 否則設回空值
+				currentOption=null;
+			}
+		});
+	</script>
+</body>
+</html>
