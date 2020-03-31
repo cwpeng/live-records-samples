@@ -1,6 +1,15 @@
 隨時歡迎參觀[彭彭的教學網站](https://training.pada-x.com/)。  
 以下是每次的直播紀錄列表：
 
+## JavaScript 事件傳遞 & 事件委派設計
+
+1. 事件傳遞機制 (Event Propagation)
+2. 認識捕獲階段 (Capture) 和冒泡階段 (Bubble)
+3. 事件委派設計 (Event Delegation)
+
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=3cTdztTmtL0)
+- 範例檔案：[/samples/event-propagation-delegation.html](https://github.com/cwpeng/live-records-samples/blob/master/samples/event-propagation-delegation.html)
+
 ## JavaScript 變數資料的處理與傳遞
 
 1. 基本資料型別和參考資料型別。
