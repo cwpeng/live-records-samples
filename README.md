@@ -1,6 +1,15 @@
 隨時歡迎參觀[彭彭的教學網站](https://training.pada-x.com/)。  
 以下是每次的直播紀錄列表：
 
+##
+
+1. 認識 Date 物件
+2. 實作萬年曆，以月份為單位切換
+3. 封裝萬年曆程式
+
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=Q2x84RdNVUY)
+- 範例檔案：[/samples/perpetual-calendar.html](https://github.com/cwpeng/live-records-samples/blob/master/samples/perpetual-calendar.html)
+
 ## JavaScript 事件傳遞 & 事件委派設計
 
 1. 事件傳遞機制 (Event Propagation)
