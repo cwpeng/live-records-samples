@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>萬年曆 Perpetual Calendar</title>
+<style>
+.list{
+	display:flex;flex-wrap:wrap;
+	width:700px;
+}
+.list>.date{
+	width:100px;height:50px;
+}
+.list>.fadeout{
+	opacity:0.3;
+}
+</style>
+</head>
+<body>
+	<!-- 封裝成 class 的版本 -->
+	<div id="calendar-1"></div>
+	<div>
+		<button onclick="cal1.preMonth();">上個月</button>
+		<button onclick="cal1.nextMonth();">下個月</button>
+	</div>
+	<hr/>
+	<div id="calendar-2"></div>
+	<div>
+		<button onclick="cal2.preMonth();">上個月</button>
+		<button onclick="cal2.nextMonth();">下個月</button>
+	</div>
+	<script>
+		class Calendar{
+			constructor(container){
+				this.container=container;
+				this.state={
+					current:new Date()
+				};
+				this.render();
+			}
+			preMonth(){
+				this.state.current.setMonth(this.state.current.getMonth()-1);
+				this.render();
+			}
+			nextMonth(){
+				this.state.current.setMonth(this.state.current.getMonth()+1);
+				this.render();
+			}
+			render(){
+				let head=document.createElement("h3");
+				head.textContent=this.state.current.getFullYear()+" / "+(this.state.current.getMonth()+1);
+				let list=document.createElement("div");
+				list.className="list";
+				list.innerHTML=""; // 先清空畫面
+				// 先取得這個月的第一天
+				let firstDate=new Date(this.state.current.getFullYear(), this.state.current.getMonth(), 1);
+				// 往前算到星期日
+				let date=new Date(firstDate.getFullYear(), firstDate.getMonth(), 1);
+				date.setDate(date.getDate()-date.getDay());
+				// 畫出上個月的後幾天
+				while(date<firstDate){
+					this.renderDate(date, list);
+					date.setDate(date.getDate()+1);
+				}
+				// 畫出這個月的日期
+				while(date.getMonth()===this.state.current.getMonth()){
+					// 畫出一天的格子
+					this.renderDate(date, list);
+					// 日期 +1
+					date.setDate(date.getDate()+1);
+				}
+				// 畫出下個月的前幾天
+				while(date.getDay()>0){
+					this.renderDate(date, list);
+					date.setDate(date.getDate()+1);
+				}
+				// 所有的東西都放進 container 裡面
+				this.container.innerHTML="";
+				this.container.appendChild(head);
+				this.container.appendChild(list);
+			}
+			renderDate(date, list){
+				let cell=document.createElement("div");
+				cell.className="date"+(date.getMonth()===this.state.current.getMonth()?"":" fadeout");
+				cell.textContent=date.getDate();
+				list.appendChild(cell);
+			}
+		}
+		let cal1=new Calendar(document.querySelector("#calendar-1"));
+		let cal2=new Calendar(document.querySelector("#calendar-2"));
+	</script>
+
+	<!-- 沒有封裝，直覺的版本 -->
+	<!--	
+	<h3 id="year-month"></h3>
+	<div class="list" id="list"></div>
+	<div>
+		<button onclick="preMonth();">上個月</button>
+		<button onclick="nextMonth();">下個月</button>
+	</div>
+	<script>
+		/*
+		// 資料
+		let state=null;
+		// 初始化萬年曆
+		function init(){
+			state={
+				current:new Date()
+			};
+			render();
+		}
+		function preMonth(){
+			state.current.setMonth(state.current.getMonth()-1);
+			render();
+		}
+		function nextMonth(){
+			state.current.setMonth(state.current.getMonth()+1);
+			render();
+		}
+		// 根據資料產生畫面
+		function render(){
+			let head=document.querySelector("#year-month");
+			head.textContent=state.current.getFullYear()+" / "+(state.current.getMonth()+1);
+			let list=document.querySelector("#list");
+			list.innerHTML=""; // 先清空畫面
+			// 先取得這個月的第一天
+			let firstDate=new Date(state.current.getFullYear(), state.current.getMonth(), 1);
+			// 往前算到星期日
+			let date=new Date(firstDate.getFullYear(), firstDate.getMonth(), 1);
+			date.setDate(date.getDate()-date.getDay());
+			// 畫出上個月的後幾天
+			while(date<firstDate){
+				renderDate(date, list);
+				date.setDate(date.getDate()+1);
+			}
+			// 畫出這個月的日期
+			while(date.getMonth()===state.current.getMonth()){
+				// 畫出一天的格子
+				renderDate(date, list);
+				// 日期 +1
+				date.setDate(date.getDate()+1);
+			}
+			// 畫出下個月的前幾天
+			while(date.getDay()>0){
+				renderDate(date, list);
+				date.setDate(date.getDate()+1);
+			}
+		}
+		function renderDate(date, list){
+			let cell=document.createElement("div");
+			cell.className="date"+(date.getMonth()===state.current.getMonth()?"":" fadeout");
+			cell.textContent=date.getDate();
+			list.appendChild(cell);
+		}
+		// 處理流程
+		init();
+		*/
+	</script>
+	-->
+</body>
+</html>
