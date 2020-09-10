@@ -1,6 +1,15 @@
 隨時歡迎參觀[彭彭的教學網站](https://training.pada-x.com/)。  
 以下是每次的直播紀錄列表：
 
+## JavaScript 資料結構與演算法：二元搜尋法 Binary Search 實作與分析
+
+1. 資料結構與演算法簡介
+2. 線性搜尋、二元搜尋
+3. 時間複雜度分析
+
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=6pK7E8abp6g)
+- 範例檔案：[/samples/binary-search.html](https://github.com/cwpeng/live-records-samples/blob/master/samples/binary-search.html)
+
 ## 利用 Date 物件實作萬年曆
 
 1. 認識 Date 物件
