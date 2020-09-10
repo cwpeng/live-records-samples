@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta charset="utf-8" />
+<title>二元搜尋法 Binary Search</title>
+</head>
+<body>
+<h3>搜尋演算法測試</h3>
+<button onclick="test();">測試</button>
+<script>
+	function test(){
+		// 基本測試
+		let data=[3, 8, 2, 12, 10];
+		let index=linearSearch(data, 5);
+		console.log("資料所在的位置", index);
+
+		data=[2, 3, 8, 10, 12];
+		console.log(data);
+		console.log("搜尋 2 的位置", binarySearch(data, 2));
+		console.log("搜尋 8 的位置", binarySearch(data, 8));
+		console.log("搜尋 12 的位置", binarySearch(data, 12));
+		console.log("搜尋 5 的位置", binarySearch(data, 5));
+		console.log("搜尋 1 的位置", binarySearch(data, 1));
+		console.log("搜尋 15 的位置", binarySearch(data, 15));
+		// 準備大型測試資料：[0, 2, 4, 6, 8, 10, ...]
+		let largeData=[];
+		for(let i=0;i<100000000;i++){ // 測試一億筆資料
+			largeData.push(i*2);
+		}
+		// 比較運作效率
+		console.log("線性搜尋所花的時間");
+		console.time();
+		console.log("搜尋 500001 所在的位置", linearSearch(largeData, 500001));
+		console.timeEnd();
+
+		console.log("---------------------------");
+
+		console.log("二元搜尋所花的時間");
+		console.time();
+		console.log("搜尋 500001 所在的位置", binarySearch(largeData, 500001));
+		console.timeEnd();
+	}
+	// 實作二元搜尋
+	function binarySearch(arr, target){
+		let startIndex=0;
+		let endIndex=arr.length-1;
+		while(endIndex>=startIndex){ // 如果結束位置比開頭位置大或相等，就表示還沒找到最後一個，繼續找
+			let midIndex=Math.floor((startIndex+endIndex)/2);
+			if(target===arr[midIndex]){ // 比對到了，回傳資料在陣列中的位置 midIndex
+				return midIndex;
+			}else if(target>arr[midIndex]){ // 要找的資料比中間的數字大，找右邊
+				startIndex=midIndex+1;
+			}else{ // 要找的資料比中間的數字小，找左邊
+				endIndex=midIndex-1;
+			}
+		}
+		// 迴圈全部跑完都沒比對到，回傳 -1
+		return -1;
+	}
+	// 實作線性搜尋
+	function linearSearch(arr, target){
+		for(let i=0;i<arr.length;i++){
+			if(arr[i]===target){ // 比對到了，回傳資料在陣列中的位置 i
+				return i;
+			}
+		}
+		// 迴圈全部跑完都沒比對到，回傳 -1
+		return -1;
+	}
+</script>
+</body>
+</html>
