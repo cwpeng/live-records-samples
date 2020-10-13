@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta charset="utf-8" />
+<title>排序演算法</title>
+</head>
+<body>
+<h3>排序演算法</h3>
+<button onclick="test();">測試</button>
+<script>
+	function test(){
+		// 氣泡排序基本測試
+		/*
+		let data=[-1, 5, 8, 10];
+		bubbleSort(data);
+		console.log(data);
+		*/
+		// 插入排序基本測試
+		/*
+		data=[5, 1, 40, 10];
+		insertionSort(data);
+		console.log(data);
+		*/
+		// 大型資料量的進階探討
+		let data=[];
+		for(let i=0;i<100000;i++){
+			data.push(Math.random()*1000000);
+		}
+		// 資料量是 100,000，我的演算法時間複雜度是 O(N^2)，預期要花 100,000^2 = 10,000,000,000 次的比較運算
+		// 我們的電腦一秒鐘跑 10 億個指令
+		console.time();
+		// insertionSort(data);
+		data.sort(); // 使用 JavaScript 內建的排序功能：很有機會是使用快速排序 Quick Sort 或其變形
+		console.timeEnd();
+	}
+	// 實作插入排序演算法
+	function insertionSort(arr){ // arr 是一個數字陣列
+		for(let i=1;i<arr.length;i++){
+			for(let j=i-1;j>=0;j--){
+				if(arr[j]>arr[j+1]){ // 如果順序不對，交換
+					[arr[j], arr[j+1]]=[arr[j+1], arr[j]]; // 交換
+				}else{ // 任何一次比較，發現順序對了，這一輪就不用繼續了
+					break;
+				}
+			}
+		}
+	}
+	// 實作氣泡排序演算法
+	function bubbleSort(arr){ // arr 是一個數字陣列
+		for(let i=arr.length-1;i>=1;i--){
+			let swap=false; // 假設沒有交換發生
+			for(let j=0;j<i;j++){
+				if(arr[j]>arr[j+1]){ // 如果順序不對，交換
+					let temp=arr[j];
+					arr[j]=arr[j+1];
+					arr[j+1]=temp;
+					swap=true; // 紀錄發生交換
+				}
+			}
+			if(!swap){ // 發現一整輪中都沒有交換發生，直接判定排序完成
+				break;
+			}
+		}
+	}
+</script>
+</body>
+</html>
