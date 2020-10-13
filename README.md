@@ -1,6 +1,15 @@
 隨時歡迎參觀[彭彭的教學網站](https://training.pada-x.com/)。  
 以下是每次的直播紀錄列表：
 
+## JavaScript 資料結構與演算法：氣泡排序 Bubble Sort、插入排序 Insertion Sort 實作與分析
+
+1. 排序演算法簡介
+2. 氣泡排序實作與分析
+3. 插入排序實作與分析
+
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=i-0wxW5Aun4)
+- 範例檔案：[/samples/bubble-sort-insertion-sort.html](https://github.com/cwpeng/live-records-samples/blob/master/samples/bubble-sort-insertion-sort.html)
+
 ## JavaScript 資料結構與演算法：二元搜尋法 Binary Search 實作與分析
 
 1. 資料結構與演算法簡介
