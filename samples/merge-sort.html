@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta charset="utf-8" />
+<title>合併排序法 Merge Sort</title>
+</head>
+<body>
+<h3>排序演算法</h3>
+<button onclick="test();">測試</button>
+<script>
+	function test(){
+		/* 基本的測試
+		let data=[6,5,-5,3,2,1];
+		mergeSort(data, 0, data.length-1);
+		console.log(data);
+		*/
+		/* 大量資料的測試
+		let data=[];
+		for(let i=0;i<100000;i++){
+			data.push(Math.random()*1000);
+		}
+		console.time();
+		mergeSort(data, 0, data.length-1);
+		console.timeEnd();
+		*/
+	}
+	// 實作合併排序演算法 - 使用遞迴
+	function mergeSort(arr, startIndex, endIndex){
+		if(startIndex<endIndex){ // 一直切割，直到剩下一個資料，不繼續切割
+			const midIndex=Math.floor((startIndex+endIndex)/2);
+			mergeSort(arr, startIndex, midIndex); // 切出左邊陣列
+			mergeSort(arr, midIndex+1, endIndex); // 切出右邊陣列
+			// 合併左右兩邊的陣列
+			const leftArr=arr.slice(startIndex, midIndex+1);
+			const rightArr=arr.slice(midIndex+1, endIndex+1);
+			let leftIndex=0;
+			let rightIndex=0;
+			let arrIndex=startIndex;
+			while(leftIndex<leftArr.length && rightIndex<rightArr.length){
+				if(leftArr[leftIndex]<rightArr[rightIndex]){
+					arr[arrIndex]=leftArr[leftIndex];
+					leftIndex++;
+				}else{
+					arr[arrIndex]=rightArr[rightIndex];
+					rightIndex++;
+				}
+				arrIndex++;
+			}
+			// 如果剩下左邊，把左邊剩下的資料都塞進結果中
+			while(leftIndex<leftArr.length){
+				arr[arrIndex]=leftArr[leftIndex];
+				leftIndex++;
+				arrIndex++;
+			}
+			// 如果剩下右邊，把右邊剩下的資料都塞進結果中
+			while(rightIndex<rightArr.length){
+				arr[arrIndex]=rightArr[rightIndex];
+				rightIndex++;
+				arrIndex++;
+			}
+		}
+	}
+	// 實作合併排序演算法 - 不使用遞迴
+	/*
+	function mergeSort(arr){
+		// 把陣列切割成一個一個的
+		let parts=arr.map((value, index)=>{
+			return {start:index, end:index};
+		});
+		// 持續進行每一輪的合併，直到最後要處理的區段剩下 1 個 (排序完畢)
+		while(parts.length>1){
+			let nextParts=[];
+			for(let i=0;i<parts.length;i+=2){
+				if(parts[i+1]){ // 有兩個區段可以合併，parts[i] 和 parts[i+1]
+					// 進行合併的程序
+					const leftPart=parts[i];
+					const rightPart=parts[i+1];
+					const leftArr=arr.slice(leftPart.start, leftPart.end+1);
+					const rightArr=arr.slice(rightPart.start, rightPart.end+1);
+					// 左右兩邊的陣列一一比較資料，把小的塞到最後的結果中，直到有一邊的陣列被處理完了
+					let leftIndex=0;
+					let rightIndex=0;
+					let arrIndex=leftPart.start;
+					while(leftIndex<leftArr.length && rightIndex<rightArr.length){
+						if(leftArr[leftIndex]<rightArr[rightIndex]){
+							arr[arrIndex]=leftArr[leftIndex];
+							leftIndex++;
+						}else{
+							arr[arrIndex]=rightArr[rightIndex];
+							rightIndex++;
+						}
+						arrIndex++;
+					}
+					// 如果剩下左邊，把左邊剩下的資料都塞進結果中
+					while(leftIndex<leftArr.length){
+						arr[arrIndex]=leftArr[leftIndex];
+						leftIndex++;
+						arrIndex++;
+					}
+					// 如果剩下右邊，把右邊剩下的資料都塞進結果中
+					while(rightIndex<rightArr.length){
+						arr[arrIndex]=rightArr[rightIndex];
+						rightIndex++;
+						arrIndex++;
+					}
+					// 紀錄下一輪要做的事情
+					nextParts.push({start:leftPart.start, end:rightPart.end});
+				}else{ // 只剩獨立的區段
+					// 紀錄下一輪要做的事情
+					nextParts.push(parts[i]);
+				}
+			}
+			parts=nextParts;
+		}
+	}
+	*/
+</script>
+</body>
+</html>
