@@ -1,6 +1,14 @@
 隨時歡迎參觀[彭彭的教學網站](https://training.pada-x.com/)。  
 以下是每次的直播紀錄列表：
 
+## JavaScript Web Components 原生組件簡介與實作
+
+1. Web Component 簡介
+2. 按鈕元件實作
+3. 網頁版面實作
+
+- 直播網址：[YouTube 直播紀錄](https://www.youtube.com/watch?v=Ne1sZZFNfoc)
+
 ## JavaScript 資料結構與演算法：合併排序 Merge Sort 實作與分析
 
 1. 合併排序的效率
