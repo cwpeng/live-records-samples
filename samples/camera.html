@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Input Detection</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+</head>
+<body>
+  <canvas id="cvs"></canvas>
+  <script>
+    const ctx=document.querySelector("#cvs").getContext("2d");
+    const video=document.createElement("video");
+    // 建立初始化程序：1. 載入 BlazeFace 模型 2. 準備視訊
+    let model=null;
+    async function init(){
+      model=await blazeface.load();
+      video.addEventListener("loadeddata", ()=>{
+        window.setInterval(refresh, 10);
+      });
+      window.navigator.mediaDevices.getUserMedia({audio:false, video:true}).then((stream)=>{
+        video.srcObject=stream;
+        video.play();
+      });
+    }
+    init();
+    async function refresh(){
+      // 利用模型對圖片做臉部辨識
+      const returnTensors=false;
+      const predictions=await model.estimateFaces(video, returnTensors);
+      // 設定畫布尺寸
+      ctx.canvas.width=video.videoWidth;
+      ctx.canvas.height=video.videoHeight;
+      if(predictions.length>0){ // 圖片中有臉部的存在
+        // 利用迴圈把每個臉部的位置取出來
+        for(let i=0;i<predictions.length;i++){
+          const rightEye=predictions[i].landmarks[0];
+          const leftEye=predictions[i].landmarks[1];
+          const start=predictions[i].topLeft;
+          const end=predictions[i].bottomRight;
+          const size=[end[0]-start[0], end[1]-start[1]];
+          // 把臉部的區塊清晰的畫出來
+          // 建立臉部的路徑
+          const faceArea=new Path2D();
+          faceArea.ellipse(
+            (leftEye[0]+rightEye[0])/2, (leftEye[1]+rightEye[1])/2,
+            size[0]*0.5, size[0]*0.8,
+            0, 0, 2*Math.PI
+          );
+          // 只把圖片畫在上面定義的路徑中
+          ctx.save();
+          ctx.clip(faceArea);
+          ctx.drawImage(video, 0, 0);
+          ctx.restore();
+        }
+      }
+      // 補上模糊的背景
+      ctx.save();
+      ctx.filter="blur(10px)";
+      ctx.globalCompositeOperation="destination-atop";
+      ctx.drawImage(video, 0, 0);
+      ctx.restore();
+    }
+  </script>
+</body>
+</html>
