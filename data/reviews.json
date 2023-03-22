@@ -3,14 +3,14 @@
     "id":1,
     "productNumber":"p01",
     "name":"彭彭",
-    "message":"還不錯！"
+    "message":"還不錯！",
     "star":5
   },
   {
     "id":2,
     "productNumber":"p03",
     "name":"丁滿",
-    "message":"有待加強"
+    "message":"有待加強",
     "star":2
   }
 ]
